@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --bg: #050505;
+  --ink: #ffffff;
+  --accent: #00ff9d; /* Cyber green */
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+@keyframes bioTextShift {
+  0% {
+    color: #8ad0b0;
+    text-shadow: 0 0 8px rgba(0, 255, 157, 0.18);
+  }
+  50% {
+    color: #c8cdd5;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.22);
+  }
+  100% {
+    color: #8ad0b0;
+    text-shadow: 0 0 8px rgba(0, 255, 157, 0.18);
+  }
+}
+
+@keyframes goldSweep {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animated-bio-text {
+  animation: bioTextShift 3.6s ease-in-out infinite;
+}
+
+.gold-moving-word {
+  display: inline-block;
+  font-weight: 700;
+  background-image: linear-gradient(90deg, #8c6b1f 0%, #ffd95a 30%, #fff3ba 50%, #d4a93d 70%, #8c6b1f 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: goldSweep 2.2s linear infinite;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faisal Portfolio</title>
+    <style>
+      #intro-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        background: #ffffff;
+        color: #000000;
+        font-family: Arial, sans-serif;
+        font-size: clamp(2rem, 6vw, 4rem);
+        font-weight: 700;
+        transition: opacity 0.4s ease;
+        overflow: hidden;
+      }
+
+      #intro-screen.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #intro-screen .intro-text {
+        display: inline-block;
+        animation: hello-pop 1s ease-out, hello-float 1.4s ease-in-out infinite;
+      }
+
+      @keyframes hello-pop {
+        0% {
+          transform: scale(0.75);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes hello-float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="intro-screen"><span class="intro-text">Hello!</span></div>
+    <div id="root"></div>
+    <audio autoplay loop> 
+<source src="mysound.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+      document.body.style.overflow = "hidden";
+
+      window.setTimeout(() => {
+        const intro = document.getElementById("intro-screen");
+        if (intro) {
+          intro.classList.add("is-hidden");
+          window.setTimeout(() => intro.remove(), 450);
+        }
+
+        document.body.style.overflowX = "hidden";
+        document.body.style.overflowY = "auto";
+      }, 3500);
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
