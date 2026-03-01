@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from "react";
 import { CyberSphere } from "./components/CyberSphere";
 import { Typewriter } from "./components/Typewriter";
 import { LetterGlitch } from "./components/LetterGlitch";
+import kaliLogo from "./imeg/px.jpeg";
 import {
   Shield,
   Terminal,
@@ -16,6 +17,23 @@ import {
   BookOpen,
   Languages
 } from "lucide-react";
+
+const toolLogoModules = import.meta.glob("./imeg/*.svg", {
+  eager: true,
+  import: "default"
+}) as Record<string, string>;
+
+const penetrationTools = Object.entries(toolLogoModules)
+  .map(([path, src]) => {
+    const filename = path.split("/").pop()?.replace(".svg", "") ?? "";
+    const readableName = filename
+      .replace(/^tool-logo-/, "")
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+
+    return { name: readableName, src };
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -158,6 +176,38 @@ export default function App() {
           <span className="text-[10px] uppercase tracking-[0.3em] font-mono">Scroll</span>
           <div className="w-[1px] h-12 bg-white" />
         </motion.div>
+      </section>
+
+      <section className="relative py-12 px-6 flex justify-center">
+        <div className="z-10 text-center">
+          <a
+            href="/CV - Cooperative training (COOP) Faisal Abdallah Alanzi.pdf"
+            download="CV - Cooperative training (COOP) Faisal Abdallah Alanzi.pdf"
+            className="cv-download-button"
+          >
+            Download My CV
+          </a>
+        </div>
+      </section>
+
+      <section className="relative py-14 px-6">
+        <div className="max-w-6xl mx-auto w-full z-10">
+          <div className="tools-title-stack">
+            <div className="kali-link-lines" aria-hidden="true" />
+            <img src={kaliLogo} alt="Kali Linux logo" className="kali-title-logo" />
+            <h2 className="tools-section-title">Penetration Testing</h2>
+          </div>
+          <div className="tools-marquee">
+            <div className="tools-track">
+              {[...penetrationTools, ...penetrationTools].map((tool, index) => (
+                <div key={`${tool.name}-${index}`} className="tool-card">
+                  <img src={tool.src} alt={tool.name} className="tool-logo" />
+                  <p className="tool-name">{tool.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Skills Section */}
