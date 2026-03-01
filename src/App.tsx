@@ -20,6 +20,7 @@ import {
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [typingReady, setTypingReady] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -27,6 +28,12 @@ export default function App() {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const handleEnter = () => setTypingReady(true);
+    window.addEventListener("portfolio-enter", handleEnter);
+    return () => window.removeEventListener("portfolio-enter", handleEnter);
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -102,7 +109,7 @@ export default function App() {
             </div>
             <div className="relative inline-block mb-8">
               <h1 className="font-display text-6xl md:text-8xl font-bold tracking-tighter leading-none">
-                <Typewriter text="My Name is Faisal" speed={60} delay={4000} />
+                {typingReady ? <Typewriter text="My Name is Faisal" speed={60} delay={0} /> : null}
               </h1>
             </div>
           </motion.div>
@@ -114,13 +121,15 @@ export default function App() {
             className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end"
           >
             <p className="text-lg md:text-xl leading-relaxed font-light animated-bio-text">
-              <Typewriter
-                text="IT specialized in Cybersecurity with strong knowledge in network security, threat detection, and vulnerability assessment. Passionate about protecting systems and data from cyber threats."
-                speed={6}
-                delay={5300}
-                highlightWord="Cybersecurity"
-                highlightClassName="gold-moving-word"
-              />
+              {typingReady ? (
+                <Typewriter
+                  text="IT specialized in Cybersecurity with strong knowledge in network security, threat detection, and vulnerability assessment. Passionate about protecting systems and data from cyber threats."
+                  speed={6}
+                  delay={800}
+                  highlightWord="Cybersecurity"
+                  highlightClassName="gold-moving-word"
+                />
+              ) : null}
             </p>
             <div className="flex flex-col gap-4">
                <div className="flex items-center gap-3 text-sm font-mono text-[#00ff9d]">

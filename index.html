@@ -30,6 +30,25 @@
         animation: hello-pop 1s ease-out, hello-float 1.4s ease-in-out infinite;
       }
 
+      #enter-btn {
+        margin-top: 1rem;
+        padding: 0.7rem 1.2rem;
+        border: 1px solid #000;
+        background: #fff;
+        color: #000;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        display: none;
+      }
+
+      #enter-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+
       @keyframes hello-pop {
         0% {
           transform: scale(0.75);
@@ -55,24 +74,61 @@
     </style>
   </head>
   <body>
-    <div id="intro-screen"><span class="intro-text">Hello!</span></div>
+    <div id="intro-screen">
+      <div>
+        <span class="intro-text">Hello!</span>
+        <div>
+          <button id="enter-btn" type="button" disabled>Enter Website</button>
+        </div>
+      </div>
+    </div>
     <div id="root"></div>
-    <audio autoplay loop> 
-<source src="mysound.mp3" type="audio/mp3">
+    <audio id="bg-audio" loop preload="auto">
+      <source src="/mysound.mp3" type="audio/mp3">
     </audio>
 
     <script>
       document.body.style.overflow = "hidden";
+      const intro = document.getElementById("intro-screen");
+      const enterBtn = document.getElementById("enter-btn");
+      const bgAudio = document.getElementById("bg-audio");
+
+      if (bgAudio) {
+        bgAudio.load();
+      }
 
       window.setTimeout(() => {
-        const intro = document.getElementById("intro-screen");
-        if (intro) {
-          intro.classList.add("is-hidden");
-          window.setTimeout(() => intro.remove(), 450);
-        }
+        const finishIntro = () => {
+          if (intro) {
+            intro.classList.add("is-hidden");
+            window.setTimeout(() => intro.remove(), 450);
+          }
+          window.dispatchEvent(new Event("portfolio-enter"));
+          document.body.style.overflowX = "hidden";
+          document.body.style.overflowY = "auto";
+        };
 
-        document.body.style.overflowX = "hidden";
-        document.body.style.overflowY = "auto";
+        if (bgAudio) {
+          bgAudio
+            .play()
+            .then(() => {
+              finishIntro();
+            })
+            .catch(() => {
+              if (enterBtn) {
+                enterBtn.style.display = "inline-block";
+                enterBtn.disabled = false;
+                enterBtn.addEventListener("click", () => {
+                  bgAudio.play().catch(() => {});
+                  finishIntro();
+                });
+              } else {
+                finishIntro();
+              }
+            });
+        } else {
+          finishIntro();
+        }
       }, 3500);
     </script>
 
