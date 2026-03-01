@@ -109,7 +109,13 @@ export default function App() {
             </div>
             <div className="relative inline-block mb-8">
               <h1 className="font-display text-6xl md:text-8xl font-bold tracking-tighter leading-none">
-                {typingReady ? <Typewriter text="My Name is Faisal" speed={60} delay={0} /> : null}
+                {typingReady ? (
+                  <Typewriter
+                    text="My Name is Faisal"
+                    speed={80}
+                    delay={700}
+                  />
+                ) : null}
               </h1>
             </div>
           </motion.div>
@@ -124,8 +130,8 @@ export default function App() {
               {typingReady ? (
                 <Typewriter
                   text="IT specialized in Cybersecurity with strong knowledge in network security, threat detection, and vulnerability assessment. Passionate about protecting systems and data from cyber threats."
-                  speed={6}
-                  delay={800}
+                  speed={9}
+                  delay={2300}
                   highlightWord="Cybersecurity"
                   highlightClassName="gold-moving-word"
                 />
