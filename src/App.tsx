@@ -181,8 +181,8 @@ export default function App() {
       <section className="relative py-12 px-6 flex justify-center">
         <div className="z-10 text-center">
           <a
-            href="/cv.pdf"
-            download="Faisal-Alanzi-CV.pdf"
+            href="/CV - Cooperative training (COOP) Faisal Abdallah Alanzi.pdf"
+            download="CV - Cooperative training (COOP) Faisal Abdallah Alanzi.pdf"
             className="cv-download-button"
           >
             Download My CV
@@ -409,6 +409,7 @@ export default function App() {
 </main>
   );
 }
+
 
 
 
